@@ -13,9 +13,8 @@ echo "✅ PostgreSQL is ready!"
 
 # Create a sample Spring Boot project if it doesn't exist
 if [ ! -f "pom.xml" ] && [ ! -f "build.gradle" ]; then
-    echo "📦 Creating sample Spring Boot project..."
-    
-    cat > pom.xml << 'EOF'
+echo "📦 Creating sample Spring Boot project..."
+cat > pom.xml << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
@@ -65,9 +64,9 @@ if [ ! -f "pom.xml" ] && [ ! -f "build.gradle" ]; then
 </project>
 EOF
 
-    # Create application.properties
-    mkdir -p src/main/resources
-    cat > src/main/resources/application.properties << 'EOF'
+# Create application.properties
+mkdir -p src/main/resources
+cat > src/main/resources/application.properties << 'EOF'
 # Database Configuration
 spring.datasource.url=jdbc:postgresql://localhost:5432/springboot_db
 spring.datasource.username=postgres
@@ -89,9 +88,9 @@ logging.level.org.springframework.web=DEBUG
 logging.level.org.hibernate.SQL=DEBUG
 EOF
 
-    # Create sample Java files
-    mkdir -p src/main/java/com/example/demo
-    cat > src/main/java/com/example/demo/DemoApplication.java << 'EOF'
+# Create sample Java files
+mkdir -p src/main/java/com/example/demo
+cat > src/main/java/com/example/demo/DemoApplication.java << 'EOF'
 package com.example.demo;
 
 import org.springframework.boot.SpringApplication;
@@ -105,71 +104,8 @@ public class DemoApplication {
 }
 EOF
 
-    # コントローラーの作成
-    cat > src/main/java/com/example/demo/HomeController.java << 'EOF'
-package com.example.demo;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-import javax.sql.DataSource;
-import java.sql.Connection;
-import java.util.HashMap;
-import java.util.Map;
-
-@RestController
-public class HomeController {
-    
-    @Autowired
-    private DataSource dataSource;
-    
-    @GetMapping("/")
-    public Map<String, Object> home() {
-        Map<String, Object> response = new HashMap<>();
-        response.put("message", "🎉 Spring Boot with Java 21 is running!");
-        response.put("timestamp", java.time.LocalDateTime.now());
-        response.put("java_version", System.getProperty("java.version"));
-        response.put("spring_boot", "✅ Working");
-        
-        // データベース接続テスト
-        try (Connection conn = dataSource.getConnection()) {
-            response.put("database", "✅ PostgreSQL Connected");
-            response.put("database_url", conn.getMetaData().getURL());
-        } catch (Exception e) {
-            response.put("database", "❌ Database Error: " + e.getMessage());
-        }
-        
-        return response;
-    }
-    
-    @GetMapping("/health")
-    public Map<String, String> health() {
-        Map<String, String> status = new HashMap<>();
-        status.put("status", "UP");
-        status.put("service", "Spring Boot Demo");
-        return status;
-    }
-    
-    @GetMapping("/api/users")
-    public Map<String, Object> getUsers() {
-        Map<String, Object> response = new HashMap<>();
-        try (Connection conn = dataSource.getConnection()) {
-            var stmt = conn.createStatement();
-            var rs = stmt.executeQuery("SELECT COUNT(*) as user_count FROM users");
-            if (rs.next()) {
-                response.put("total_users", rs.getInt("user_count"));
-            }
-            response.put("message", "Users table accessed successfully");
-        } catch (Exception e) {
-            response.put("error", e.getMessage());
-        }
-        return response;
-    }
-}
-EOF
-
-    # User エンティティの作成
-    cat > src/main/java/com/example/demo/User.java << 'EOF'
+# User エンティティの作成
+cat > src/main/java/com/example/demo/User.java << 'EOF'
 package com.example.demo;
 
 import jakarta.persistence.*;
@@ -214,8 +150,7 @@ public class User {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
 EOF
-
-    echo "✅ Sample Spring Boot project created!"
+echo "✅ Sample Spring Boot project created!"
 fi
 
 # Install dependencies
