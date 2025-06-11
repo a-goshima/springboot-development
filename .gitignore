@@ -1,0 +1,38 @@
+# 環境変数ファイル
+.env
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# Java
+target/
+*.jar
+*.war
+*.ear
+*.class
+
+# Maven
+.mvn/
+mvnw
+mvnw.cmd
+
+# Gradle
+.gradle/
+build/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
+
+# Docker
+.docker/

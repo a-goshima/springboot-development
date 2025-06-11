@@ -1,0 +1,46 @@
+{
+  "name": "SpringBoot-Development",
+  "dockerComposeFile": "compose.yml",
+  "service": "app",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "vscjava.vscode-java-pack",
+        "vmware.vscode-spring-boot",
+        "vscjava.vscode-spring-initializr",
+        "vscjava.vscode-spring-boot-dashboard",
+        "ms-vscode.vscode-json",
+        "redhat.vscode-yaml",
+        "ms-vscode-remote.remote-containers"
+      ],
+      "settings": {
+        "java.configuration.runtimes": [
+          {
+            "name": "JavaSE-21",
+            "path": "/usr/lib/jvm/msopenjdk-21"
+          }
+        ],
+        "java.compile.nullAnalysis.mode": "automatic",
+        "spring-boot.ls.problem.application-properties.unknown-property": "ignore"
+      }
+    }
+  },
+
+  "forwardPorts": ["${localEnv:SERVER_PORT:8080}", 5432],
+  "portsAttributes": {
+    "${localEnv:SERVER_PORT:8080}": {
+      "label": "Spring Boot App",
+      "onAutoForward": "notify"
+    },
+    "5432": {
+      "label": "PostgreSQL",
+      "onAutoForward": "silent"
+    }
+  },
+
+  "postCreateCommand": "chmod +x .devcontainer/post-create.sh && ./.devcontainer/post-create.sh",
+  
+  "remoteUser": "vscode"
+}
