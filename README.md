@@ -2,7 +2,7 @@
 
 EC2対応のJava 21 + Spring Boot + PostgreSQL開発環境です。
 
-## 🚀 セットアップ手順
+## セットアップ手順
 
 ### 1. 環境変数の設定
 ```bash
@@ -34,7 +34,7 @@ PUBLIC_HOST=ec2-xx-xx-xx-xx.compute-1.amazonaws.com
 mvn spring-boot:run
 ```
 
-## 🌐 アクセス方法
+## アクセス方法
 
 ### ローカル環境
 - Spring Boot: http://localhost:8080
@@ -44,7 +44,7 @@ mvn spring-boot:run
 - Spring Boot: http://[YOUR_EC2_PUBLIC_IP]:8080
 - PostgreSQL: [YOUR_EC2_PUBLIC_IP]:5432
 
-## 🔒 セキュリティ設定
+## セキュリティ設定
 
 ### EC2セキュリティグループ
 以下のポートを開放してください：
@@ -59,7 +59,7 @@ Port Range: 8080
 Source: 0.0.0.0/0 (またはあなたのIPアドレス)
 ```
 
-## 📝 便利なコマンド
+## 便利なコマンド
 
 ```bash
 # アプリケーション起動
@@ -75,7 +75,7 @@ mvn clean install
 psql -h localhost -U postgres -d springboot_db
 ```
 
-## 🗂️ ファイル構成
+## ファイル構成
 
 ```
 .
@@ -91,7 +91,7 @@ psql -h localhost -U postgres -d springboot_db
 └── README.md              # このファイル
 ```
 
-## ⚠️ 注意事項
+## 注意事項
 
 - `.env`ファイルは機密情報を含むため、Gitにコミットされません
 - EC2で使用する場合は、セキュリティグループの設定を忘れずに
