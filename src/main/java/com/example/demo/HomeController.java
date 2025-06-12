@@ -17,17 +17,17 @@ public class HomeController {
     @GetMapping("/")
     public Map<String, Object> home() {
         Map<String, Object> response = new HashMap<>();
-        response.put("message", "🎉 Spring Boot with Java 21 is running!");
+        response.put("message", "Spring Boot with Java 21 is running!");
         response.put("timestamp", java.time.LocalDateTime.now());
         response.put("java_version", System.getProperty("java.version"));
-        response.put("spring_boot", "✅ Working");
+        response.put("spring_boot", "Working");
         
         // データベース接続テスト
         try (Connection conn = dataSource.getConnection()) {
-            response.put("database", "✅ PostgreSQL Connected");
+            response.put("database", "PostgreSQL Connected");
             response.put("database_url", conn.getMetaData().getURL());
         } catch (Exception e) {
-            response.put("database", "❌ Database Error: " + e.getMessage());
+            response.put("database", "Database Error: " + e.getMessage());
         }
         
         return response;
