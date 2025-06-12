@@ -1,19 +1,19 @@
 #!/bin/bash
 
-echo "🚀 Setting up Java 21 Spring Boot development environment..."
+echo "Setting up Java 21 Spring Boot development environment..."
 
 # Wait for PostgreSQL to be ready
-echo "⏳ Waiting for PostgreSQL to be ready..."
+echo "Waiting for PostgreSQL to be ready..."
 until pg_isready -h localhost -p 5432 -U postgres; do
   echo "PostgreSQL is not ready yet, waiting..."
   sleep 2
 done
 
-echo "✅ PostgreSQL is ready!"
+echo "PostgreSQL is ready!"
 
 # Create a sample Spring Boot project if it doesn't exist
 if [ ! -f "pom.xml" ] && [ ! -f "build.gradle" ]; then
-echo "📦 Creating sample Spring Boot project..."
+echo "Creating sample Spring Boot project..."
 cat > pom.xml << 'EOF'
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -150,37 +150,37 @@ public class User {
     public void setCreatedAt(LocalDateTime createdAt) { this.createdAt = createdAt; }
 }
 EOF
-echo "✅ Sample Spring Boot project created!"
+echo "Sample Spring Boot project created!"
 fi
 
 # Install dependencies
 if [ -f "pom.xml" ]; then
-    echo "📥 Installing Maven dependencies..."
+    echo "Installing Maven dependencies..."
     mvn dependency:resolve
 elif [ -f "build.gradle" ]; then
-    echo "📥 Installing Gradle dependencies..."
+    echo "Installing Gradle dependencies..."
     ./gradlew build --no-daemon
 fi
 
-echo "🎉 Development environment is ready!"
+echo "Development environment is ready!"
 echo ""
-echo "🔧 Available commands:"
+echo "Available commands:"
 echo "  mvn spring-boot:run    - Start the Spring Boot application"
 echo "  mvn test              - Run tests"
 echo "  mvn clean install     - Build the project"
 echo ""
-echo "🌐 Access points:"
+echo "Access points:"
 echo "  Spring Boot App: http://${PUBLIC_HOST:-localhost}:${SERVER_PORT:-8080}"
 echo "  PostgreSQL: ${PUBLIC_HOST:-localhost}:5432 (user: postgres, password: postgres)"
 echo ""
-echo "📝 Database connection test:"
+echo "Database connection test:"
 psql -h localhost -U postgres -d springboot_db -c "SELECT 'Database connection successful!' as status;"
 
 # .envファイルの作成案内
 if [ ! -f ".env" ]; then
     echo ""
-    echo "⚠️  .env file not found!"
-    echo "📋 Please create .env file from template:"
-    echo "   cp .env.template .env"
-    echo "   # Edit .env file with your EC2 public IP address"
+    echo ".env file not found!"
+    echo "Please create .env file from template:"
+    echo "cp .env.template .env"
+    echo "# Edit .env file with your EC2 public IP address"
 fi
